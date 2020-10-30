@@ -1,0 +1,4 @@
+include ':mylibrary'
+include ':easeui'
+include ':app'
+rootProject.name = "ChatDemo1.0"

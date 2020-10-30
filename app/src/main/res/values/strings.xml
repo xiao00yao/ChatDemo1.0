@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ChatDemo</string>
+    <string name="password_digits">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+</resources>

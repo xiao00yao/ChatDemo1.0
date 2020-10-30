@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/messageFragment"
+        android:icon="@drawable/em_tab_chat_bg"
+        android:title="会话"/>
+
+    <item
+        android:id="@+id/constantFragment"
+        android:icon="@drawable/em_tab_contact_list_bg"
+        android:title="通讯录"/>
+
+    <item
+        android:id="@+id/settingFragment"
+        android:icon="@drawable/em_tab_setting_bg"
+        android:title="设置"/>
+
+
+
+</menu>
