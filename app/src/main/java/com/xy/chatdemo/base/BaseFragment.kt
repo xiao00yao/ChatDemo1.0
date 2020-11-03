@@ -1,17 +1,16 @@
-package com.xy.chatdemo
+package com.xy.chatdemo.base
 
-import android.app.ActionBar
-import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.xy.chatdemo.R
 import kotlinx.android.synthetic.main.basefragment.*
 
 abstract class BaseFragment: Fragment() {
     lateinit var baseFragment: BaseFragment
-
+    lateinit var mRootView:ViewGroup
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         baseFragment = this
@@ -29,17 +28,16 @@ abstract class BaseFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var rootView = inflater.inflate(R.layout.basefragment,container,false)
+        mRootView = rootView.findViewById(R.id.rootView)
         setContentLayout(setlayout())
         return rootView
     }
 
     private fun setContentLayout(viewId: Int){
         var view = LayoutInflater.from(activity).inflate(viewId,null)
-        val layoutParams = view.layoutParams
-        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-        layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+        val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
         view.layoutParams = layoutParams
-        rootView.addView(view,layoutParams)
+        mRootView.addView(view,layoutParams)
     }
 
     abstract fun setlayout():Int

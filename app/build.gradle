@@ -5,6 +5,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        config {
+            storeFile file('D:\\keystore\\chatdemo.keystore')
+            storePassword '123456'
+            keyAlias 'chatdemo'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion 29
 
     defaultConfig {
@@ -45,4 +53,5 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+//    implementation 'com.github.tbruyelle:rxpermissions:0.12'
 }
