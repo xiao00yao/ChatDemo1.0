@@ -2,6 +2,7 @@ package com.xy.chatdemo.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -69,7 +70,19 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
 
     fun setContactList() {
-
+//        val handler = Handler()
+//        handler.postDelayed(object :Runnable{
+//            override fun run() {
+//                var userMap = mutableMapOf<String,EaseUser>()
+//                val users =
+//                    EMClient.getInstance().contactManager().allContactsFromServer
+//                users.forEach {
+//                    userMap.put(it, EaseUser(it))
+//                }
+//                mConstantFragment.setContactsMap(userMap)
+//            }
+//
+//        },300)
         Thread(object :Runnable{
             override fun run() {
                 var userMap = mutableMapOf<String,EaseUser>()
