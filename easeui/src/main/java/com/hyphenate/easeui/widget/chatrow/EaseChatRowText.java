@@ -4,20 +4,24 @@ import android.content.Context;
 import android.text.Spannable;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.model.EaseDingMessageHelper;
 import com.hyphenate.easeui.utils.EaseSmileUtils;
+import com.hyphenate.exceptions.HyphenateException;
 
 import java.util.List;
 
 public class EaseChatRowText extends EaseChatRow{
 
 	private TextView contentView;
+	private ImageView headImg;
 
     public EaseChatRowText(Context context, EMMessage message, int position, BaseAdapter adapter) {
 		super(context, message, position, adapter);
@@ -32,12 +36,19 @@ public class EaseChatRowText extends EaseChatRow{
 	@Override
 	protected void onFindViewById() {
 		contentView = (TextView) findViewById(R.id.tv_chatcontent);
+        headImg = (ImageView) findViewById(R.id.iv_userhead);
 	}
 
     @Override
     public void onSetUpView() {
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
         Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
+        try {
+            String headImgurl = message.getStringAttribute("HeadImg");
+            Glide.with(this).load(headImgurl).into(headImg);
+        } catch (HyphenateException e) {
+            e.printStackTrace();
+        }
         // 设置内容
         contentView.setText(span, BufferType.SPANNABLE);
     }

@@ -97,7 +97,7 @@ public class EaseMessageAdapter extends BaseAdapter{
 		private void refreshList() {
 			// you should not call getAllMessages() in UI thread
 			// otherwise there is problem when refreshing UI and there is new message arrive
-			java.util.List<EMMessage> var = conversation.getAllMessages();
+			java.util.List<EMMessage> var = conversation.getAllMessages();/**获取所有消息****/
 			messages = var.toArray(new EMMessage[var.size()]);
 			conversation.markAllMessagesAsRead();
 			notifyDataSetChanged();
@@ -124,6 +124,9 @@ public class EaseMessageAdapter extends BaseAdapter{
 		}
 	};
 
+	/**
+	 * 刷新消息
+	 */
 	public void refresh() {
 		if (handler.hasMessages(HANDLER_MESSAGE_REFRESH_LIST)) {
 			return;
@@ -268,7 +271,7 @@ public class EaseMessageAdapter extends BaseAdapter{
 
 		if (convertView == null) {
 			presenter = createChatRowPresenter(message, position);
-			convertView = presenter.createChatRow(context, message, position, this);
+			convertView = presenter.createChatRow(context, message, position, this); /*****创建消息Item的布局*****/
 			convertView.setTag(presenter);
 		} else {
 			presenter = (EaseChatRowPresenter) convertView.getTag();

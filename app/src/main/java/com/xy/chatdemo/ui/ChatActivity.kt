@@ -12,12 +12,13 @@ import kotlinx.android.synthetic.main.chat_activity.*
  */
 class ChatActivity(): BaseActivity() {
     var toChatUsername: String? = null
+    lateinit var chatFragment : EaseChatFragment
     override fun setLayout(): Int {
         return R.layout.chat_activity
     }
 
     override fun initVariables(savedInstanceState: Bundle?) {
-        var chatFragment = EaseChatFragment()
+        var chatFragment = ChatFragment()
         //pass parameters to chat fragment
         chatFragment.arguments = intent.extras
         //get user id or group id

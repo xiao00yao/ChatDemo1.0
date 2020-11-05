@@ -38,6 +38,7 @@
              >
 
             <TextView
+                android:text="dsfsdfd"
                 android:id="@+id/tv_chatcontent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

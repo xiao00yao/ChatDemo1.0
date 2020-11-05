@@ -38,7 +38,8 @@ class StartActivity : AppCompatActivity() {
                 }
 
             }, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_COARSE_LOCATION
         )
         var strname = SPUtils.getInstance().getString(Constant.USERNAME)
         var strpassword = SPUtils.getInstance().getString(Constant.PASSWORD)
