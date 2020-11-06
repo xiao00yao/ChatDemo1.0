@@ -2,20 +2,16 @@ package com.xy.chatdemo.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.blankj.utilcode.util.SPUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMConversation.EMConversationType
 import com.hyphenate.easeui.EaseConstant
 import com.hyphenate.easeui.domain.EaseUser
 import com.xy.chatdemo.R
-import com.xy.chatdemo.base.Constant
-import kotlinx.android.synthetic.main.login_activity.*
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {

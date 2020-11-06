@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'org.greenrobot.greendao' //GreenDao
 }
 
 android {
@@ -14,6 +15,15 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+    }
+//    GreenDao 配置
+    greendao {
+        schemaVersion getDbVersion() //数据库版本号
+
+        daoPackage 'com.xy.mylibrary.entity' //例如 包名.greendao
+
+        targetGenDir 'src/main/java'
+
     }
 
     buildTypes {
@@ -30,6 +40,18 @@ android {
         jvmTarget = '1.8'
     }
 }
+//获取数据库版本号
+def getDbVersion(){
+    def file = file("../version.properties")
+    if (file.canRead()){
+        Properties mProperties = new Properties()
+        mProperties.load(new FileInputStream(file))
+        def int dbVersion = mProperties['DB_VERSION'].toInteger()
+        return dbVersion
+    }
+
+
+}
 
 dependencies {
 
@@ -38,9 +60,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     api 'com.blankj:utilcodex:1.28.1'
+    implementation project(path: ':easeui')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 //    implementation 'com.github.tbruyelle:rxpermissions:0.12'
     api 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.4'
+    implementation 'org.greenrobot:greendao:3.3.0' //GreenDao
+    api 'com.dhh:rxlifecycle2:1.6'
 }

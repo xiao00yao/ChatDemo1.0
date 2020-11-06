@@ -1,17 +1,18 @@
 package com.xy.chatdemo.base
 
-import android.R
 import android.app.Application
-import android.os.Environment
+import android.database.sqlite.SQLiteDatabase
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMOptions
 import com.hyphenate.easeui.EaseUI
 import com.tencent.bugly.Bugly
-import com.tencent.bugly.beta.Beta
-import com.xy.chatdemo.ui.MainActivity
+import com.xy.mylibrary.base.BaseLibraryApplication
+import com.xy.mylibrary.entity.DaoMaster
+import com.xy.mylibrary.entity.DaoMaster.DevOpenHelper
+import com.xy.mylibrary.entity.DaoSession
 
 
-class DemoApplication:Application() {
+class DemoApplication:BaseLibraryApplication() {
     lateinit var mApplication:Application
     companion object{
         fun getIntance():Application{
@@ -81,8 +82,6 @@ class DemoApplication:Application() {
 //         */
 //        Beta.canShowUpgradeActs.add(MainActivity::class.java)
 
-
-
-
     }
+
 }
