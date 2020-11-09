@@ -7,6 +7,7 @@ import com.xy.mylibrary.entity.DaoMaster;
 import com.xy.mylibrary.entity.DaoSession;
 
 public class BaseLibraryApplication extends Application {
+//    private DaoMaster.DevOpenHelper mHelper = null;
     private DaoMaster.DevOpenHelper mHelper = null;
     private SQLiteDatabase db = null;
     private DaoMaster mDaoMaster= null;
@@ -19,7 +20,7 @@ public class BaseLibraryApplication extends Application {
         setDatabase();
     }
 
-    public BaseLibraryApplication  getIntance(){
+    public BaseLibraryApplication getIntance(){
         return mBaseLibraryApplication;
     }
 

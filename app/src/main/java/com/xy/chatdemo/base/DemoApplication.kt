@@ -1,18 +1,14 @@
 package com.xy.chatdemo.base
 
 import android.app.Application
-import android.database.sqlite.SQLiteDatabase
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMOptions
 import com.hyphenate.easeui.EaseUI
 import com.tencent.bugly.Bugly
-import com.xy.mylibrary.base.BaseLibraryApplication
-import com.xy.mylibrary.entity.DaoMaster
-import com.xy.mylibrary.entity.DaoMaster.DevOpenHelper
-import com.xy.mylibrary.entity.DaoSession
+import com.xy.chatdemo.utils.DemoHelper
 
 
-class DemoApplication:BaseLibraryApplication() {
+class DemoApplication: Application() {
     lateinit var mApplication:Application
     companion object{
         fun getIntance():Application{
@@ -31,6 +27,7 @@ class DemoApplication:BaseLibraryApplication() {
         options.requireDeliveryAck = false
         EMClient.getInstance().init(this,options)
         EaseUI.getInstance().init(this,null)
+        DemoHelper.init(this)
 //CrashReport
         Bugly.init(applicationContext, "77aea7ef1c", false) //bugly内侧分发升级
 

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ChatDemo</string>
     <string name="password_digits">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
 </resources>

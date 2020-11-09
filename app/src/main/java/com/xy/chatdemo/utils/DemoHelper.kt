@@ -1,13 +1,20 @@
 package com.xy.chatdemo.utils
 
 import android.content.Context
+import com.hyphenate.EMMessageListener
 import com.hyphenate.chat.EMClient
+import com.hyphenate.chat.EMMessage
+import com.hyphenate.chat.EMMessage.ChatType
 import com.hyphenate.chat.EMOptions
+import com.hyphenate.chat.EMTextMessageBody
 import com.hyphenate.easeui.EaseUI
 import com.hyphenate.easeui.EaseUI.EaseUserProfileProvider
 import com.hyphenate.easeui.domain.EaseAvatarOptions
 import com.hyphenate.easeui.domain.EaseUser
+import com.hyphenate.easeui.model.EaseAtMessageHelper
 import com.hyphenate.easeui.utils.EaseCommonUtils
+import com.xy.chatdemo.R
+import com.xy.chatdemo.base.Constant
 import com.xy.mylibrary.utils.UserDbUtils
 import java.util.*
 
@@ -33,6 +40,62 @@ object DemoHelper {
             // set profile provider if you want easeUI to handle avatar and nickname
             easeUI.setUserProfileProvider(EaseUserProfileProvider { username -> getUserInfo(username) })
         }
+        registerMessageListener()//注册监听
+    }
+
+    private fun registerMessageListener() {
+        var mEMMessageListener =  object : EMMessageListener{
+            override fun onMessageRecalled(messages: MutableList<EMMessage>) {
+                for (msg in messages) {
+                    if (msg.chatType == ChatType.GroupChat && EaseAtMessageHelper.get()
+                            .isAtMeMsg(msg)
+                    ) {
+                        EaseAtMessageHelper.get().removeAtMeGroup(msg.to)
+                    }
+                    val msgNotification =
+                        EMMessage.createReceiveMessage(EMMessage.Type.TXT)
+                    val txtBody = EMTextMessageBody(
+                        String.format(
+                            appContext!!.getString(R.string.msg_recall_by_user),
+                            msg.from
+                        )
+                    )
+                    msgNotification.addBody(txtBody)
+                    msgNotification.from = msg.from
+                    msgNotification.to = msg.to
+                    msgNotification.isUnread = false
+                    msgNotification.msgTime = msg.msgTime
+                    msgNotification.setLocalTime(msg.msgTime)
+                    msgNotification.chatType = msg.chatType
+                    msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true)
+                    msgNotification.setStatus(EMMessage.Status.SUCCESS)
+                    EMClient.getInstance().chatManager().saveMessage(msgNotification)
+                }
+            }
+
+            override fun onMessageChanged(p0: EMMessage?, p1: Any?) {
+
+            }
+
+            override fun onCmdMessageReceived(p0: MutableList<EMMessage>?) {
+
+            }
+
+            override fun onMessageReceived(p0: MutableList<EMMessage>?) {
+
+            }
+
+            override fun onMessageDelivered(p0: MutableList<EMMessage>?) {
+
+            }
+
+            override fun onMessageRead(p0: MutableList<EMMessage>?) {
+
+            }
+
+        }
+
+        EMClient.getInstance().chatManager().addMessageListener(mEMMessageListener)
     }
 
     /***
@@ -67,7 +130,7 @@ object DemoHelper {
         return user
     }
 
-    private lateinit var currentUser: EaseUser
+    private var currentUser: EaseUser? = null
     private var contactList: Map<String, EaseUser> = mutableMapOf()
     /**
      * 获取当前用户信息
@@ -78,8 +141,8 @@ object DemoHelper {
             val username = EMClient.getInstance().currentUser
             currentUser = EaseUser(username)
             val nick: String = UserProfileManager.getCurrentUserNick() //绰号、昵称
-            currentUser.setNickname(nick ?: username)
-            currentUser.setAvatar(UserProfileManager.getCurrentUserAvatar())//头像
+            currentUser!!.setNickname(nick ?: username)
+            currentUser!!.setAvatar(UserProfileManager.getCurrentUserAvatar())//头像
         }
         return currentUser
     }
