@@ -1,6 +1,7 @@
 package com.hyphenate.easeui.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,7 +54,10 @@ public class EaseUserUtils {
                         .into(imageView);
             }
         }else{
+            Log.i("环信----------",user.getAvatar()+"+++++++++++");
+            //从服务器中获取头像连接来设置
             Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
+            Glide.with(context).load("http://jjw-personnel.oss-cn-shenzhen.aliyuncs.com/Image/Personnel/20191115/2WZhplWsZaMEZWYZctSQgo.png").into(imageView);
         }
     }
     

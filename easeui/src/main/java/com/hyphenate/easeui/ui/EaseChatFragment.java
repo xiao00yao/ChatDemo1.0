@@ -361,7 +361,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
      */
     protected void registerExtendMenuItem(){
         for(int i = 0; i < itemStrings.length; i++){
-            inputMenu.registerExtendMenuItem(itemStrings[i], itemdrawables[i], itemIds[i], extendMenuItemClickListener);
+            inputMenu.registerExtendMenuItem(itemStrings[i], itemdrawables[i], itemIds[i], extendMenuItemClickListener); //给输入框添加功能
         }
     }
     
@@ -802,7 +802,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 selectPicFromLocal();
                 break;
             case ITEM_LOCATION:
-                startActivityForResult(new Intent(getActivity(), EaseBaiduMapActivity.class), REQUEST_CODE_MAP);
+                startActivityForResult(new Intent(getActivity(), EaseBaiduMapActivity.class), REQUEST_CODE_MAP); //跳转到地图
                 break;
 
             default:
@@ -1048,6 +1048,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
     /**
      * capture new image
+     * 拍照
      */
     protected void selectPicFromCamera() {
         if (!EaseCommonUtils.isSdcardExist()) {
@@ -1066,6 +1067,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
     /**
      * select local image
+     * 从本地相册选择图片
      */
     protected void selectPicFromLocal() {
         EaseCompat.openImage(this, REQUEST_CODE_LOCAL);

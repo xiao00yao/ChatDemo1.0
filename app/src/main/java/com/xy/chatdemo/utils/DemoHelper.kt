@@ -1,6 +1,8 @@
 package com.xy.chatdemo.utils
 
 import android.content.Context
+import com.blankj.utilcode.util.DeviceUtils.getModel
+import com.blankj.utilcode.util.ToastUtils
 import com.hyphenate.EMMessageListener
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
@@ -13,10 +15,15 @@ import com.hyphenate.easeui.domain.EaseAvatarOptions
 import com.hyphenate.easeui.domain.EaseUser
 import com.hyphenate.easeui.model.EaseAtMessageHelper
 import com.hyphenate.easeui.utils.EaseCommonUtils
+import com.hyphenate.util.EMLog
 import com.xy.chatdemo.R
 import com.xy.chatdemo.base.Constant
+import com.xy.mylibrary.entity.User
+import com.xy.mylibrary.entity.UserDao
 import com.xy.mylibrary.utils.UserDbUtils
 import java.util.*
+import kotlin.collections.HashMap
+
 
 /**
  * 帮助类
@@ -81,12 +88,62 @@ object DemoHelper {
 
             }
 
-            override fun onMessageReceived(p0: MutableList<EMMessage>?) {
+            override fun onMessageReceived(message: MutableList<EMMessage>) {
+//                contactList = mutableMapOf()
+                ToastUtils.showShort("我进来了")
+                message.forEach {
+                    val ext = it.ext()
+                    val userName = ext["userName"].toString() //用户名
+                    val userPic = ext["avatar"].toString()//用户头像
+                    val hxIdFrom :String = it.from
 
+                    var easeUser = EaseUser(hxIdFrom)
+
+                    easeUser.avatar = userPic //头像
+
+                    easeUser.nickname = userName //昵称
+
+                    // 存入内存
+                    getContactList()
+
+                    contactList [hxIdFrom] = easeUser
+
+//                    // 存入db
+//                    UserDbUtils.getIntance().insertUer(User(hxIdFrom,userName,userPic))
+//
+//                    var users = mutableListOf<EaseUser>();
+//                    users.add(easeUser);
+//                    dao.saveContactList(users);
+//
+//                    //                    List<EaseUser> users = new ArrayList<EaseUser>();
+////                    users.add(easeUser);
+////                    dao.saveContactList(users);
+//                    getModel().setContactSynced(true)
+//
+//                    // 通知listeners联系人同步完毕
+//
+//                    // 通知listeners联系人同步完毕
+//                    notifyContactsSyncListener(true)
+//
+//
+//                    EMLog.d("TAG", "onMessageReceived id : " + it.getMsgId())
+//                    // in background, do not refresh UI, notify it in notification bar
+//                    // in background, do not refresh UI, notify it in notification bar
+//                    if (!easeUI.hasForegroundActivies()) {
+//                        getNotifier().onNewMsg(it)
+//
+//                    }
+                }
             }
 
             override fun onMessageDelivered(p0: MutableList<EMMessage>?) {
-
+                val users: MutableMap<String, EaseUser> = Hashtable()
+                for (user in mutableListOf<EaseUser>()) {
+                    val mEaseUser = EaseUser(user.username)
+                    mEaseUser.avatar = user.avatar
+                    mEaseUser.nickname = user.nickname
+                    users[user.username] = mEaseUser
+                }
             }
 
             override fun onMessageRead(p0: MutableList<EMMessage>?) {
@@ -131,7 +188,8 @@ object DemoHelper {
     }
 
     private var currentUser: EaseUser? = null
-    private var contactList: Map<String, EaseUser> = mutableMapOf()
+//    private var contactList: Map<String, EaseUser> = mutableMapOf()
+    private var contactList: MutableMap<String, EaseUser> = mutableMapOf()
     /**
      * 获取当前用户信息
      */
@@ -154,6 +212,7 @@ object DemoHelper {
      * @return
      */
     fun getContactList(): Map<String, EaseUser> {
+        contactList = mutableMapOf()
         if (isLoggedIn() && contactList == null) {
             contactList = UserDbUtils.getIntance().selectAlluser()
         }

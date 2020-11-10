@@ -160,8 +160,8 @@ public class EaseChatInputMenu extends LinearLayout {
 
     /**
      * register menu item
-     * 
-     * @param name
+     *  添加相应的操作
+     * @param nameRes
      *            resource id of item name
      * @param drawableRes
      *            background of item

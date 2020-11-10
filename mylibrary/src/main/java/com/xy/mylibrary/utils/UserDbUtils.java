@@ -37,4 +37,11 @@ public class UserDbUtils {
         }
         return users;
     }
+
+    /**
+     * 新增用户
+     */
+    public void insertUer(User user){
+        mUserdao.insert(user);
+    }
 }
